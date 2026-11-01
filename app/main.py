@@ -39,6 +39,28 @@ def health():
     }), 200
 
 
+
+@app.route("/tasks")
+def list_tasks():
+    tasks = [
+        {
+            "id": 1,
+            "title": "Learn Git",
+            "completed": False,
+        },
+        {
+            "id": 2,
+            "title": "Build Taskflow API",
+            "completed": False,
+        },
+    ]
+
+    logger.info("Tasks list requested")
+
+    return jsonify({"tasks": tasks}), 200
+
+
+
 if __name__ == "__main__":
     port = int(os.getenv("APP_PORT", "5000"))
     app.run(host="0.0.0.0", port=port, debug=False)
