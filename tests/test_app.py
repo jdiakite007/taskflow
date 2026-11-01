@@ -29,3 +29,17 @@ def test_health_endpoint(client):
 
     assert data["status"] == "healthy"
     assert data["application"] == "taskflow"
+
+
+def test_list_tasks_endpoint(client):
+    response = client.get("/tasks")
+
+    assert response.status_code == 200
+
+    data = response.get_json()
+
+    assert "tasks" in data
+    assert len(data["tasks"]) == 2
+    assert data["tasks"][0]["id"] == 1
+    assert data["tasks"][0]["title"] == "Learn Git"
+    assert data["tasks"][0]["completed"] is False
